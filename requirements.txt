@@ -1,0 +1,9 @@
+torch>=2.0.0
+torchvision>=0.15.0
+numpy
+opencv-python
+insightface==0.7.3
+matplotlib
+scikit-learn
+tqdm
+Pillow
