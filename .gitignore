@@ -1,0 +1,19 @@
+# Ignore saved model weights
+*.pth
+
+# Ignore embeddings
+*.npy
+
+# Ignore plots (can add selectively)
+*.png
+
+# Ignore cache
+__pycache__/
+*.pyc
+
+# Ignore dataset folders (don’t push huge data)
+dataset_split/
+images/
+
+# Ignore virtual environments
+venv/
