@@ -1,92 +1,34 @@
+# Face recognition on low-quality images
 
-# 🧠 Face Recognition on Low-Quality Images  
-**AI Developer Intern Task – Jezt Technologies**  
-**Author:** Vaikhashi A
+Face matching usually works fine on clear photos and falls apart on blurry, dark or tiny ones. This project looks at how much a model can recover on the low-quality ones.
 
----
+I started with a pretrained InsightFace model to get face embeddings as a baseline, then fine-tuned a ResNet18 on the low-quality images and compared the two. I built it as a take-home task for an AI developer internship.
 
-## 📌 Project Overview
+## Pipeline
 
-This project addresses real-world challenges in facial recognition using **low-quality images**. It employs a combination of a **pretrained InsightFace model** for robust baseline embeddings and a **fine-tuned ResNet18** classifier to improve performance.
+1. `split_dataset.py` splits each person's photos into train and validation sets.
+2. `baseline.py` extracts embeddings with InsightFace.
+3. `baseline_evaluation.py` plots ROC, precision-recall and similarity distributions for the baseline.
+4. `fine_tune.py` fine-tunes ResNet18 on the training set.
+5. `evaluate_fine_tuned.py` produces the same plots for the fine-tuned model.
 
-The system performs:
-- Face detection & embedding extraction (InsightFace)
-- Baseline evaluation (ROC, Precision-Recall, Similarity Distribution)
-- Model fine-tuning using a custom ResNet18 classifier
-- Post-finetuning performance comparison
+The results and plots are written up in `AI_Developer_Report_Vaikhashi.pdf`.
 
----
-
-## 🔧 Setup Instructions
-
-### 1. Clone & Environment Setup
+## Running it
 
 ```bash
-git clone https://github.com/Vaikhashi/FaceRecognitionTask.git
-cd FaceRecognitionTask
 python -m venv venv
-venv\Scripts\activate          # For Windows
+venv\Scripts\activate        # on Windows
 pip install -r requirements.txt
-````
+```
 
----
-
-### 2. Prepare the Dataset
-
-* Download the dataset from the link provided by Jezt Technologies
-* Place the dataset inside an `images/` folder like this:
+The dataset isn't in this repo. Put it in an `images/` folder, one folder per person with `High_quality/` and `Low_quality/` inside:
 
 ```
 images/
-├── person1/
-│   └── ananthu/
-│       ├── High_quality/
-│       └── Low_quality/
-├── person2/
-│   └── ...
+  person1/
+    High_quality/
+    Low_quality/
 ```
 
----
-
-### 3. Execute the Pipeline
-
-```bash
-# Split dataset into training and validation
-python split_dataset.py
-
-# Run baseline embedding extraction
-python baseline.py
-
-# Generate baseline performance plots
-python baseline_evaluation.py
-
-# Fine-tune the ResNet18 model on low-quality faces
-python fine_tune.py
-
-# Evaluate fine-tuned model and generate final plots
-python evaluate_fine_tuned.py
-```
-
----
-
-## 📁 Project Files
-
-| File                                | Description                                                 |
-| ----------------------------------- | ----------------------------------------------------------- |
-| `baseline.py`                       | Extracts embeddings using InsightFace                       |
-| `baseline_evaluation.py`            | ROC, Precision-Recall, and Similarity plots (before tuning) |
-| `fine_tune.py`                      | Fine-tunes a ResNet18 model on training set                 |
-| `evaluate_fine_tuned.py`            | Evaluates model performance after tuning                    |
-| `split_dataset.py`                  | Organizes dataset into `train/` and `val/` splits           |
-| `AI_Developer_Report_Vaikhashi.pdf` | 📄 Final evaluation report with summary, results & plots    |
-
-
-## 🙏 Acknowledgement
-
-Thank you Jezt Technologies for the opportunity to showcase my skills on a practical AI problem.
-This task allowed me to explore real-world challenges in face recognition and apply both pretrained models and deep learning techniques to address them.
-
-
-
-
-
+Then run the scripts in the order above.
